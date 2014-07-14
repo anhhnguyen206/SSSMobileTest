@@ -19,7 +19,7 @@
     <string name="enter_code_hint">Enter number code</string>
     <string name="send">Send</string>
     <string name="authenticatedUser">AuthenticatedUser</string>
-    <string name="title_activity_scan_result">ScanResultActivity</string>
+    <string name="title_activity_scan_result">Scan result</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
