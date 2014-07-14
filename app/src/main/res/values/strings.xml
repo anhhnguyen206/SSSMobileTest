@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SSSMobileTest</string>
+    <string name="title_activity_scanner">SSS Mobile Scanner</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_logout">Logout</string>
+    <string name="title_activity_enter_code">Enter code</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="logged_in_key">Logged in</string>
+    <string name="sss_mobile_test">SSS Mobile Test</string>
+    <string name="title_activity_logout">Logout</string>
+    <string name="logout">Logout</string>
+    <string name="enter_code_hint">Enter number code</string>
+    <string name="send">Send</string>
+    <string name="authenticatedUser">AuthenticatedUser</string>
+    <string name="title_activity_scan_result">ScanResultActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+</resources>
