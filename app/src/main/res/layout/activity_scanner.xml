@@ -4,6 +4,14 @@
     android:layout_height="match_parent"
     tools:context="com.example.anhhnguyen.myapplication.ScannerActivity">
 
+    <TextView
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:background="@color/black_overlay"
+        android:textColor="@color/common_signin_btn_light_text_pressed"
+        android:text="Hold QR code about 20cm from your phone"/>
 
         <LinearLayout
             android:orientation="vertical"
@@ -15,6 +23,7 @@
             android:layout_alignParentTop="true"
             android:layout_weight="1"
             >
+
 
         </LinearLayout>
 

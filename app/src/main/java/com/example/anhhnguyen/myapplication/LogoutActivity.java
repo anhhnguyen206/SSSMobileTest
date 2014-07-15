@@ -22,11 +22,7 @@ public class LogoutActivity extends Activity {
 
         final TextView loggedMsg = (TextView)findViewById(R.id.loginMsg);
 
-        SharedPreferences preferences = getSharedPreferences(getResources().getString(R.string.sss_mobile_test), 0);
-
-        String username = preferences.getString(getResources().getString(R.string.username), "");
-
-        loggedMsg.setText(Html.fromHtml("Logged in as: <b>"+ username +"</b>"));
+        loggedMsg.setText(Html.fromHtml("Logged in as: <b>"+ AuthenticatedUser.getCurrentUser(this).getUsername() +"</b>"));
 
         final Button logoutBtn = (Button)findViewById(R.id.btnLogOut);
         logoutBtn.setOnClickListener(new View.OnClickListener() {

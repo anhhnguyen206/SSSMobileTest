@@ -9,11 +9,8 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.anhhnguyen.myapplication.util.ExceptionUtils;
-import com.octo.android.robospice.persistence.exception.SpiceException;
-import com.octo.android.robospice.request.listener.RequestListener;
-
 import models.AuthenticatedUser;
+import spicelisteners.ScanRequestListener;
 import spicerequests.ScanRequest;
 
 public class EnterCodeActivity extends SSSActivity {
@@ -41,7 +38,7 @@ public class EnterCodeActivity extends SSSActivity {
     private void performScanRequest(String txtCode) {
         EnterCodeActivity.this.setProgressBarIndeterminateVisibility(true);
         ScanRequest scanRequest = new ScanRequest(txtCode, AuthenticatedUser.getCurrentUser(EnterCodeActivity.this).getAccess_token());
-        super.spiceManager.execute(scanRequest, new ScanRequestListener());
+        super.spiceManager.execute(scanRequest, new ScanRequestListener(this));
     }
 
     @Override
@@ -55,26 +52,4 @@ public class EnterCodeActivity extends SSSActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private class ScanRequestListener implements RequestListener<String> {
-
-        @Override
-        public void onRequestFailure(SpiceException spiceException) {
-            // Default error setup
-            String error = ExceptionUtils.getErrorMessage(spiceException);
-            EnterCodeActivity.this.setProgressBarIndeterminateVisibility(false);
-            Intent intent = new Intent(EnterCodeActivity.this, ScanResultActivity.class);
-            intent.putExtra("type", "invalid");
-            intent.putExtra("message", error);
-            startActivity(intent);
-        }
-
-        @Override
-        public void onRequestSuccess(String scanResult) {
-            EnterCodeActivity.this.setProgressBarIndeterminateVisibility(false);
-            Intent intent = new Intent(EnterCodeActivity.this, ScanResultActivity.class);
-            intent.putExtra("type", "valid");
-            intent.putExtra("message", "Valid");
-            startActivity(intent);
-        }
-    }
 }

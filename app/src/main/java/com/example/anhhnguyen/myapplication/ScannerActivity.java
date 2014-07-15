@@ -1,19 +1,21 @@
 package com.example.anhhnguyen.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.anhhnguyen.myapplication.util.ExceptionUtils;
 import com.octo.android.robospice.persistence.DurationInMillis;
-import com.octo.android.robospice.persistence.exception.SpiceException;
-import com.octo.android.robospice.request.listener.RequestListener;
 
 import me.dm7.barcodescanner.zbar.Result;
 import me.dm7.barcodescanner.zbar.ZBarScannerView;
 import models.AuthenticatedUser;
+import spicelisteners.ScanRequestListener;
 import spicerequests.ScanRequest;
 
 import android.content.pm.PackageManager;
@@ -64,9 +66,9 @@ public class ScannerActivity extends SSSActivity implements ZBarScannerView.Resu
 
         mScannerView = new ZBarScannerView(this);
         mScannerView.setAutoFocus(true);
+        mScannerView.setupScanner();
 
         LinearLayout zBarLayout = (LinearLayout)findViewById(R.id.zBarLayout);
-        mScannerView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         zBarLayout.addView(mScannerView);
     }
 
@@ -120,7 +122,7 @@ public class ScannerActivity extends SSSActivity implements ZBarScannerView.Resu
         String code = rawResult.getContents();
         ScanRequest scanRequest = new ScanRequest(code, AuthenticatedUser.getCurrentUser(ScannerActivity.this).getAccess_token());
 
-        super.spiceManager.execute(scanRequest, new ScanRequestListener());
+        super.spiceManager.execute(scanRequest, new ScanRequestListener(this));
 
     }
 
@@ -139,36 +141,11 @@ public class ScannerActivity extends SSSActivity implements ZBarScannerView.Resu
             lastRequestCacheKey = savedInstanceState
                     .getString(KEY_LAST_REQUEST_CACHE_KEY);
             spiceManager.addListenerIfPending(String.class,
-                    lastRequestCacheKey, new ScanRequestListener());
+                    lastRequestCacheKey, new ScanRequestListener(this));
             spiceManager.getFromCache(String.class,
                     lastRequestCacheKey, DurationInMillis.ONE_MINUTE,
-                    new ScanRequestListener());
+                    new ScanRequestListener(this));
         }
     }
 
-    private class ScanRequestListener implements RequestListener<String>{
-
-        @Override
-        public void onRequestFailure(SpiceException spiceException) {
-            // Default error setup
-            String error = ExceptionUtils.getErrorMessage(spiceException);
-            ScannerActivity.this.setProgressBarIndeterminateVisibility(false);
-
-            Intent intent = new Intent(ScannerActivity.this, ScanResultActivity.class);
-            intent.putExtra("type", "invalid");
-            intent.putExtra("message", error);
-            startActivity(intent);
-
-        }
-
-        @Override
-        public void onRequestSuccess(String scanResult) {
-            ScannerActivity.this.setProgressBarIndeterminateVisibility(false);
-
-            Intent intent = new Intent(ScannerActivity.this, ScanResultActivity.class);
-            intent.putExtra("type", "valid");
-            intent.putExtra("message", "Valid");
-            startActivity(intent);
-        }
-    }
 }

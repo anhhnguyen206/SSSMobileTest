@@ -1,27 +1,45 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/wrapper"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="#0099cc"
     tools:context="com.example.anhhnguyen.myapplication.ScanResultActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
-    <TextView android:id="@+id/fullscreen_content"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:keepScreenOn="true"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:textSize="30sp"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/dummy_content" />
+        android:layout_weight="1">
+        <ImageView
+            android:layout_width="90sp"
+            android:layout_height="90sp"
+            android:id="@+id/imageStatus"
+            android:scaleType="fitXY"
+            android:gravity="center"/>
+
+        <TextView android:id="@+id/fullscreen_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:keepScreenOn="true"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:text="@string/dummy_content" />
+
+        </LinearLayout>
+
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
     <FrameLayout android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
 
         <LinearLayout android:id="@+id/fullscreen_content_controls"
@@ -43,4 +61,4 @@
         </LinearLayout>
     </FrameLayout>
 
-</FrameLayout>
+</LinearLayout>

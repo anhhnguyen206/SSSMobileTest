@@ -14,7 +14,7 @@ import java.io.IOException;
 public class ExceptionUtils {
     public static String getErrorMessage(SpiceException spiceException){
         String response = "";
-        String error = "";
+        String error = spiceException.getLocalizedMessage();
         if(spiceException.getCause() instanceof HttpStatusCodeException)
         {
             HttpStatusCodeException

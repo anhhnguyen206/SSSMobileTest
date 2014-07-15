@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -57,15 +59,21 @@ public class ScanResultActivity extends Activity {
 
         final TextView resultText = (TextView)findViewById(R.id.fullscreen_content);
         resultText.setText(resultMessage);
-        resultText.setBackgroundColor(Color.RED);
+
+        final LinearLayout wrapperLayout = (LinearLayout)findViewById(R.id.wrapper);
+        wrapperLayout.setBackgroundColor(Color.parseColor("#CC0000"));
+
+        final ImageView imageStatus = (ImageView)findViewById(R.id.imageStatus);
+        imageStatus.setImageDrawable(getResources().getDrawable(R.drawable.ic_invalid));
 
         if (resultType.equals("valid")){
-            resultText.setBackgroundColor(Color.GREEN);
+            wrapperLayout.setBackgroundColor(Color.parseColor("#669900"));
+            imageStatus.setImageDrawable(getResources().getDrawable(R.drawable.ic_valid));
         }
 
         //resultText.setcom(drawable, null, null, null);
 
-        resultText.setOnTouchListener(new View.OnTouchListener() {
+        wrapperLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 scanNext();
@@ -82,14 +90,10 @@ public class ScanResultActivity extends Activity {
         });
     }
 
-    private void scanNext(){
+    private void scanNext() {
         Intent intent = new Intent(this, ScannerActivity.class);
         startActivity(intent);
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-    }
 
  }

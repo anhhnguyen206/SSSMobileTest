@@ -83,6 +83,7 @@ public class LoginActivity extends SSSActivity {
             String error = ExceptionUtils.getErrorMessage(spiceException);
 
             new AlertDialog.Builder(LoginActivity.this)
+                    .setInverseBackgroundForced(true)
                     .setIcon(android.R.drawable.stat_notify_error)
                     .setTitle("Error")
                     .setMessage(error)
