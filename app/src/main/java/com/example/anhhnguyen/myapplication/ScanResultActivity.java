@@ -3,6 +3,7 @@ package com.example.anhhnguyen.myapplication;
 import com.example.anhhnguyen.myapplication.util.SystemUiHider;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -67,7 +68,7 @@ public class ScanResultActivity extends Activity {
         resultText.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                finish();
+                scanNext();
                 return false;
             }
         });
@@ -76,9 +77,14 @@ public class ScanResultActivity extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                scanNext();
             }
         });
+    }
+
+    private void scanNext(){
+        Intent intent = new Intent(this, ScannerActivity.class);
+        startActivity(intent);
     }
 
     @Override
