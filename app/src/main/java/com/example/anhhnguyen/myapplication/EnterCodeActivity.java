@@ -3,6 +3,7 @@ package com.example.anhhnguyen.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -24,6 +25,19 @@ public class EnterCodeActivity extends SSSActivity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         final EditText code = (EditText)findViewById(R.id.txtCodeNumber);
+
+        code.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)){
+                    String number = code.getText().toString();
+                    performScanRequest(number);
+                }
+
+                return false;
+            }
+        });
 
         final Button send = (Button)findViewById(R.id.btnSend);
         send.setOnClickListener(new View.OnClickListener() {

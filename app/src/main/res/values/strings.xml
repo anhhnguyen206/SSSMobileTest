@@ -11,7 +11,7 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in">Login</string>
     <string name="logged_in_key">Logged in</string>
     <string name="sss_mobile_test">SSS Mobile Test</string>
     <string name="title_activity_logout">Logout</string>

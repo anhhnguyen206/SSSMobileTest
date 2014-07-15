@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -33,6 +34,20 @@ public class LoginActivity extends SSSActivity {
 
         final EditText username = (EditText)findViewById(R.id.username);
         final EditText password = (EditText)findViewById(R.id.password);
+
+        password.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)){
+                    String usernameValue = username.getText().toString();
+                    String passwordValue = password.getText().toString();
+                    performLoginRequest(usernameValue, passwordValue);
+                }
+
+                return false;
+            }
+        });
 
         final Button btnLogin = (Button)findViewById(R.id.sign_in_button);
         btnLogin.setOnClickListener(new View.OnClickListener() {
