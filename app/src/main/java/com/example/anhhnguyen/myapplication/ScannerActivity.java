@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.octo.android.robospice.persistence.DurationInMillis;
+import com.octo.android.robospice.retry.DefaultRetryPolicy;
 
 import me.dm7.barcodescanner.zbar.Result;
 import me.dm7.barcodescanner.zbar.ZBarScannerView;
@@ -119,8 +120,11 @@ public class ScannerActivity extends SSSActivity implements ZBarScannerView.Resu
     public void handleResult(Result rawResult) {
         onPause();
         ScannerActivity.this.setProgressBarIndeterminateVisibility(true);
+
         String code = rawResult.getContents();
+
         ScanRequest scanRequest = new ScanRequest(code, AuthenticatedUser.getCurrentUser(ScannerActivity.this).getAccess_token());
+        scanRequest.setRetryPolicy(new DefaultRetryPolicy(0,0,0));
 
         super.spiceManager.execute(scanRequest, new ScanRequestListener(this));
 

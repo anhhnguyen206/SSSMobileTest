@@ -8,10 +8,11 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="12sp"
         android:background="@color/black_overlay"
         android:textColor="@color/common_signin_btn_light_text_pressed"
-        android:text="Hold QR code about 20cm from your phone"/>
+        android:text="Hold QR code about 20cm from your phone"
+        android:typeface="sans" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -33,7 +34,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            />
+            android:typeface="sans"
+            style="@android:style/Holo.ButtonBar"
+            android:background="#ff41bbff"
+            android:textColor="#ffffffff" />
 
 
 </TableLayout>

@@ -29,6 +29,9 @@
         android:text="@string/action_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        style="@android:style/Holo.Light.ButtonBar"
+        android:background="#ff41bbff"
+        android:textColor="#ffffffff" />
 
 </TableLayout>

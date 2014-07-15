@@ -15,6 +15,9 @@ import com.example.anhhnguyen.myapplication.util.ExceptionUtils;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
+import com.octo.android.robospice.retry.DefaultRetryPolicy;
+
+import org.w3c.dom.Text;
 
 import models.AuthenticatedUser;
 import spicerequests.LoginRequest;
@@ -24,6 +27,9 @@ public class LoginActivity extends SSSActivity {
 
     private String lastRequestCacheKey;
 
+    private EditText username;
+    private EditText password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,8 +38,8 @@ public class LoginActivity extends SSSActivity {
         // render activity_login.xml
         setContentView(R.layout.activity_login);
 
-        final EditText username = (EditText)findViewById(R.id.username);
-        final EditText password = (EditText)findViewById(R.id.password);
+        username = (EditText)findViewById(R.id.username);
+        password = (EditText)findViewById(R.id.password);
 
         password.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -60,11 +66,24 @@ public class LoginActivity extends SSSActivity {
         });
     }
 
-    private void performLoginRequest(String username, String password){
+    private void performLoginRequest(String usernameValue, String passwordValue){
+        if (TextUtils.isEmpty(usernameValue)){
+            username.setError("Required");
+            username.requestFocus();
+            return;
+        }
+
+        if (TextUtils.isEmpty(passwordValue)){
+            password.setError("You really think you can login without a password?");
+            password.requestFocus();
+            return;
+        }
+
         LoginActivity.this.setProgressBarIndeterminateVisibility(true);
 
-        LoginRequest requestLogin = new LoginRequest(username, password);
+        LoginRequest requestLogin = new LoginRequest(usernameValue, passwordValue);
         lastRequestCacheKey = requestLogin.createCacheKey();
+        requestLogin.setRetryPolicy(new DefaultRetryPolicy(0, 0, 0));
 
         super.spiceManager.execute(requestLogin, lastRequestCacheKey, DurationInMillis.ONE_MINUTE, new LoginRequestListener());
     }
